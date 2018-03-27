@@ -1,0 +1,64 @@
+------------------------------------------------------------------------------------------------------------------------
+-- created by: Aayman Shameem 
+-- created on: Mar 27, 2018
+--
+-- This code will tell you whether the user has to go to work, go to school or relax depending on the day and age inputs
+------------------------------------------------------------------------------------------------------------------------
+
+-- instruction for inputing the age 
+local ageText = display.newText( "Type in your age: ", display.contentCenterX - 675, display.contentCenterY - 520, native.systemFont, 140 )
+
+-- the textbox for age input
+local ageInput = native.newTextField( display.contentCenterX + 277, display.contentCenterY - 520, 720, 177 )
+ageInput.id = "The user's age input"
+
+-- the instruction for the day input
+local dayText = display.newText( "Type in the day: ", display.contentCenterX - 650, display.contentCenterY - 277, native.systemFont, 140 )
+
+-- the textbox for the day input
+local dayInput = native.newTextField( display.contentCenterX + 277, display.contentCenterY - 277, 720, 177 )
+
+-- the computer's decision
+local compDecision = display.newText( "You will...", display.contentCenterX, display.contentCenterY + 488, native.systemFont, 140 )
+
+
+-- the button of deciding what to do
+local checkButton = display.newImageRect( "./assets/sprites/enterButton.png", 675, 277 )
+-- the x and y positions of the button
+checkButton.x = display.contentCenterX 
+checkButton.y = display.contentCenterY + 120
+-- what the button is called
+checkButton.id = "the decider button"
+
+--[[
+the button that will make the computer tell the user what price to pay
+based on the age and day inputs
+]]  
+local function DeciderButton( event )
+
+	-- make sure the number is recognized as a value
+	local ageInput = tonumber(ageInput.text)
+
+	-- make sure text is recognized as a string
+	local dayInput = tostring(dayInput.text)
+
+	-- all the days
+	local Saturday = "Saturday"
+	local Sunday = "Sunday"
+
+
+	-- if it's a weekend, then RELAX 
+	if  dayInput == Sunday or dayInput == Saturday then
+
+	compDecision.text = "You will relax."
+
+	-- if it's not a weekend then YOU WILL NOT RELAX 
+	elseif ageInput > 18 then
+		compDecision.text = "You will go to work."
+
+	else
+		compDecision.text = "You will go to school."
+	end 
+end
+
+checkButton:addEventListener( "touch", DeciderButton )
